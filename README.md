@@ -54,3 +54,17 @@ make menuconfig
 make bzImage
 make modules
 make install
+
+mkinitrd:
+
+generated the initrd ram disk
+
+kernel is compiled the ram disk may also need to change
+
+dracut:
+
+mkinitrd relies on udev and script to lessen the amount of hard-coded activity in the initramfs
+
+cat /proc/modules
+
+modinfo sr_mod
