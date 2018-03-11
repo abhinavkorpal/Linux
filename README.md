@@ -68,3 +68,40 @@ mkinitrd relies on udev and script to lessen the amount of hard-coded activity i
 cat /proc/modules
 
 modinfo sr_mod
+
+systemd, provides a standard process for controlling which program start when a linux system boots.
+Runlevels are now target units
+SysVinit scripts are now service units
+PID 1 is now /usr/lib/systemd/systemd
+
+Targets in systemd    Runlevels with init
+
+poweroff.target         0
+rescue.target           1
+multiuser.target        2
+multiuser.target        3
+multiuser.target        4
+graphical.target        5
+reboot.target           6
+
+
+cat /etc/system-release
+
+systemctl get-default
+
+systemctl set-default multi-user.target
+
+systemctl isolate multi-user.target
+
+
+systemctl status sshd
+
+/lib/systemd/system
+
+/etc/systemd/system              need to change anything on running script
+
+
+systemctl show kdump.service
+
+systemctl list-units
+systemctl list-unit-files
