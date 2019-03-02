@@ -105,3 +105,7 @@ systemctl show kdump.service
 
 systemctl list-units
 systemctl list-unit-files
+
+ ### Daemon-Monitoring Daemon (DMD)
+
+A daemon-monitoring daemon (DMD) is a utility that watches your services for you and automatically attempts to restart them when they fail.
