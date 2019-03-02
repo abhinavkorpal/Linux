@@ -1,10 +1,13 @@
 Linux Cheat Sheet
 ===============
 ### Index
-* [Daemon-Monitoring Daemon](#Daemon-Monitoring Daemon)
-* [Installing and Configuring monit](#Installing and Configuring monit)
+* [Linux kernel](#linux-kernel)
+* [Daemon Monitoring Daemon](#daemon-monitoring-daemon)
+* [Installing and Configuring monit](#installing-and-configuring-monit)
 
-# Linux-kernel
+<hr>
+
+# Linux kernel
 This repo contain the content of Linux kernel
 
 uname -n kernal name
@@ -112,9 +115,13 @@ systemctl show kdump.service
 systemctl list-units
 systemctl list-unit-files
 
+<hr>
+
  ## Daemon-Monitoring Daemon (DMD)
 
 A daemon-monitoring daemon (DMD) is a utility that watches your services for you and automatically attempts to restart them when they fail.
+
+<hr>
 
  ## Installing and Configuring monit
  
@@ -225,3 +232,4 @@ Finally, start monit:
 ```
 Now point your browser to https://your_domain:2812/ (make sure port 2812 isn’t blocked by your firewall) and log in with the username admin and password test. You should see the monit web interface.
 
+<hr>
