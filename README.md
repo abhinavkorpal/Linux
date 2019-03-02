@@ -2,7 +2,7 @@ Linux Cheat Sheet
 ===============
 ### Index
 * [Linux kernel](#linux-kernel)
-* [Daemon Monitoring Daemon](#daemon-monitoring-daemon)
+* [Daemon-Monitoring Daemon](#daemon-monitoring-daemon)
 * [Installing and Configuring monit](#installing-and-configuring-monit)
 
 <hr>
