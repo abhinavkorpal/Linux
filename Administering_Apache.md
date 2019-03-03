@@ -12,16 +12,16 @@ The DSO method is easier and more flexi-ble, since it allows you to add modules 
 
 ### Static and Dynamic Files:
 
-A basic web site consists of files: HTML, graphics, JavaScript, stylesheets, and other types. 
+* A basic web site consists of files: HTML, graphics, JavaScript, stylesheets, and other types. 
 
-The contents of these files are static—they don’t change on the server, and the only job of the web server is to return them to the browser on request.
+* The contents of these files are static—they don’t change on the server, and the only job of the web server is to return them to the browser on request.
 
-A web server needs only a little configuration to serve static files.
+* A web server needs only a little configuration to serve static files.
 
-The simplest way to make static HTML files dynamic is with server-side includes (SSI).
+* The simplest way to make static HTML files dynamic is with server-side includes (SSI).
 
-SSI has its limits, though, and most dynamic sites use the far more powerful Common Gateway Interface (CGI) programs.
+* SSI has its limits, though, and most dynamic sites use the far more powerful Common Gateway Interface (CGI) programs.
 
-CGI is a proto-col that specifies how web clients and servers should exchange requests and responses.
+* CGI is a proto-col that specifies how web clients and servers should exchange requests and responses.
 
-One faster method is FastCGI, which starts up the CGI program as a separate long- running process and manages two-way communications between it and the web server. 
+* One faster method is FastCGI, which starts up the CGI program as a separate long- running process and manages two-way communications between it and the web server. 
