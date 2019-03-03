@@ -1,6 +1,6 @@
-`Administering_Apache` `RGB(0%,100%,0%)`
+`Administering_Apache`
 
-- `Apache` `RGB(0%,100%,0%)` isn’t the fastest web server, or the easiest to configure, or the most secure, but it’s good enough to dominate all others.
+- Apache isn’t the fastest web server, or the easiest to configure, or the most secure, but it’s good enough to dominate all others.
 
 - Apache powers more than 60 percent of all public web sites.
 
