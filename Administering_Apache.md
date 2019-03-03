@@ -1,14 +1,12 @@
-Apache isn’t the fastest web server, or the easiest to configure, or the most secure, but it’s good enough to dominate all others.
+- Apache isn’t the fastest web server, or the easiest to configure, or the most secure, but it’s good enough to dominate all others.
 
-Apache powers more than 60 percent of all public web sites.
+- Apache powers more than 60 percent of all public web sites.
 
-Apache runs on Linux, Mac OS X, and all other Unix-like systems, as well as the many incarnations of Microsoft Windows.
+- Apache runs on Linux, Mac OS X, and all other Unix-like systems, as well as the many incarnations of Microsoft Windows.
 
-Apache can be built with all of its modules combined into one big program (static linking), or with modules that are loaded into memory as needed (dynamic shared objects, or DSOs). 
+- Apache can be built with all of its modules combined into one big program (static linking), or with modules that are loaded into memory as needed (dynamic shared objects, or DSOs). 
 
-The DSO method is easier and more flexi-ble, since it allows you to add modules to Apache after you’ve built it.
-
-
+- The DSO method is easier and more flexi-ble, since it allows you to add modules to Apache after you’ve built it.
 
 ### Static and Dynamic Files:
 
