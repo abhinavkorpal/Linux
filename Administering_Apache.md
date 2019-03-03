@@ -36,3 +36,73 @@ Apache uses plain ASCII configuration files.
 | mods-enabled/*.conf | Definitions for each enabled module. Debian includes the programs a2enmod to enable a module and a2dismod to disable one. The effect is to move xyz.conf and xyz. load files between /etc/apache/mods-available and /etc/apache2/mods-enabled for a module named xyz. The apache2.conf file uses the files under mods-enabled. |
 | sites-enabled/* | Definitions for each web site. The default is 000-default, but there’s nothing magic about that name. You can have as many files here as you like.|
 | .htaccess | Definitions for a directory, contained in that directory. Overrides other configuration files because it’s read last. Permitted only if AllowOverride is not set to none. Can be changed without reloading Apache. This is how many webmasters allow their clients to customize their sites without touching the main Apache configuration files.|
+
+
+Configuration File Directives:
+
+Following are the contents of the default Apache configuration file, /etc/apache2/sites-enabled/ 000-default. Sections begin and end with HTML-style tags, such as:
+```shell
+<VirtualHost *>
+    ...
+ </VirtualHost>
+ ```
+ 
+ ```shell
+ # Answer to any name or IP address:
+    NameVirtualHost *
+    # For any virtual host at any address, any port:
+    <VirtualHost *>
+# If Apache has problems, whom should it contact? ServerAdmin webmaster@localhost
+        # Our web site files will be under this directory:
+        DocumentRoot /var/www/
+        # Overall directives, in case we move DocumentRoot
+        # or forget to specify something later:
+        <Directory />
+            # Lets Apache follow symbolic links:
+            Options FollowSymLinks
+            # Disables .htaccess files in subdirectories:
+            AllowOverride None
+        </Directory>
+        # DocumentRoot itself:
+        <Directory /var/www/>
+            Options Indexes FollowSymLinks MultiViews
+            # Forbids .htaccess files:
+            AllowOverride None
+            Order allow,deny
+            allow from all
+            # Maps / to /apache2-default, the initial welcome
+         # page that says "If you can see this...":
+             RedirectMatch ^/$ /apache2-default/
+         </Directory>
+         # Permits CGI scripts:
+         ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+         <Directory "/usr/lib/cgi-bin">
+             AllowOverride None
+             Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+             Order allow,deny
+             Allow from all
+         </Directory>
+         # Error log for a single site:
+         ErrorLog /var/log/apache2/error.log
+         # Possible values include: debug, info, notice,
+         # warn, error, crit, alert, and emerg:
+         LogLevel warn
+         # Access log for a single site:
+         CustomLog /var/log/apache2/access.log combined
+         # Sends Apache and PHP version information to browsers;
+         # Set to Off if you're paranoid, or have reason to be:
+         ServerSignature On
+         # Shows Apache docs (only to local users)
+         # if you installed apache2-docs;
+         # to suppress showing the documents,
+         # you can comment these lines or delete them:
+         Alias /doc/ "/usr/share/doc/"
+         <Directory "/usr/share/doc/">
+             Options Indexes MultiViews FollowSymLinks
+             AllowOverride None
+             Order deny,allow
+             Deny from all
+             Allow from 127.0.0.0/255.0.0.0 ::1/128
+         </Directory>
+     </VirtualHost>
+ ```
