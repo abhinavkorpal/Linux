@@ -22,4 +22,17 @@
 
 * CGI is a proto-col that specifies how web clients and servers should exchange requests and responses.
 
-* One faster method is FastCGI, which starts up the CGI program as a separate long- running process and manages two-way communications between it and the web server. 
+* One faster method is FastCGI, which starts up the CGI program as a separate long- running process and manages two-way communications between it and the web server.
+
+### Apache Configuration Files
+
+Apache uses plain ASCII configuration files.
+ 
+ 
+| File/Directory under /etc/apache2 | Uses |
+| --- | --- |
+| apache2.conf | ```shell Main configuration file. Includes other files through the following directives: # Include module configuration: Include /etc/apache2/mods-enabled/*.load Include /etc/apache2/mods-enabled/*.conf # Include all user configurations: Include /etc/apache2/httpd.conf # Include ports listing Include /etc/apache2/ports.conf # Include generic snippets of statements Include /etc/apache2/conf.d/[^.#]*```|
+| conf.d/* | Anything you like can go here. By default, it’s empty.|
+| mods-enabled/*.conf | Definitions for each enabled module. Debian includes the programs a2enmod to enable a module and a2dismod to disable one. The effect is to move xyz.conf and xyz. load files between /etc/apache/mods-available and /etc/apache2/mods-enabled for a module named xyz. The apache2.conf file uses the files under mods-enabled. |
+| sites-enabled/* | Definitions for each web site. The default is 000-default, but there’s nothing magic about that name. You can have as many files here as you like.|
+| .htaccess | Definitions for a directory, contained in that directory. Overrides other configuration files because it’s read last. Permitted only if AllowOverride is not set to none. Can be changed without reloading Apache. This is how many webmasters allow their clients to customize their sites without touching the main Apache configuration files.|
