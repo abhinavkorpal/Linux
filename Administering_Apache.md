@@ -10,7 +10,7 @@ The DSO method is easier and more flexi-ble, since it allows you to add modules 
 
 
 
-Static and Dynamic Files:
+### Static and Dynamic Files:
 
 A basic web site consists of files: HTML, graphics, JavaScript, stylesheets, and other types. 
 
