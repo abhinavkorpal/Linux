@@ -250,3 +250,5 @@ SimpleAuthenticationandSecurityLayer(SASL)
 Unsolicited bulk emailers (UBEs), also knowns as spammers.UBEs use a variety of techniques to hide their real identities, including spoofing IP addresses, forging mail envelopes, and relaying through open SMTP servers.
 
 unsolicited commercial emailers (UCEs)
+
+File locking is a mechanism that enforces access to a computer file by only one user or process at any specific time. The purpose of locking is to prevent conflicting updates.
