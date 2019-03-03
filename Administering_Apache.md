@@ -106,3 +106,11 @@ Following are the contents of the default Apache configuration file, /etc/apache
          </Directory>
      </VirtualHost>
  ```
+
+### User and Group directives
+
+These important settings tell Apache to run with a particular user ID and group ID. The Debian default in /etc/apache2/apache2.conf is:
+```shell
+ User www-data
+ Group www-data
+ ```
