@@ -4,6 +4,7 @@ Linux Cheat Sheet
 * [Linux kernel](#linux-kernel)
 * [Daemon-Monitoring Daemon](#daemon-monitoring-daemon)
 * [Installing and Configuring monit](#installing-and-configuring-monit)
+* [Email](#email)
 
 <hr>
 
