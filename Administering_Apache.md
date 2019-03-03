@@ -116,3 +116,43 @@ These important settings tell Apache to run with a particular user ID and group 
  User www-data
  Group www-data
  ```
+ 
+ 
+### Authentication and Authorization
+
+Authentication determines who a visitor is.
+Authoriza- tion determines what that visitor can do.
+
+• Read a file
+• Use server-side includes
+• Run a CGI program
+• Generate an index page for a directory lacking one
+
+In Apache, the usual place to store authentication information is in a plain-text user file (often called an .htpasswd file, after the program that modifies it). The user file contains user IDs and encrypted passwords. The optional group file contains plain- text group IDs and user IDs; it’s useful for larger sites because it lets you specify per- missions for a group as a whole rather than for each of the individual users.
+
+#### User files
+
+create a password-protected directory and place a small text file in it.
+```shell
+# cd /var/www 
+# mkdir secret
+# cd secret
+# echo "now you see it" > file.html
+```
+Now make a user file:
+```shell
+# cd /tmp
+# htpasswd -c /tmp/users jack
+New password: black_pearl
+Re-type new password: black_pearl Adding password for user jack
+```
+If you want to change jack’s password later, enter:
+```shell
+# htpasswd /tmp/users jack
+New password: kraken
+Re-type new password: kraken Updating password for user jack
+```
+### Group files
+Another way to handle multiple users is to use a group file.
+
+
