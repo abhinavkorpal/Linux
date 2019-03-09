@@ -325,11 +325,17 @@ you didn’t enable mod_include. Run the command:
 ```
 ### CGI Program Doesn’t Run
 If you can’t get a CGI program to run, work through the following checklist:
+
 • Has CGI been enabled, by one of the methods discussed earlier?
+
 • Is the CGI program in a CGI directory like /var/cgi-bin, or does it have a suffix like .php?
+
 • Is the file readable? If not, use chmod.
+
 • What does the Apache error log say?
+
 • How about the system error log, /var/log/messages?
+
 ### SSL Doesn’t Work
 Check that you enabled the Apache SSL module (a2enmod ssl) and told Apache to listen to port 443 in /etc/apache2/ports.conf:
 Listen 443
