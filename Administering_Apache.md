@@ -215,30 +215,30 @@ Web Page Doesn’t Appear in Browser
 Let’s assume your document root is /var/www, your file is test.html, and your server is server1.centralsoft.org. When you use an external web browser to access http://XXX.XXX.org/test.html, you get an error page in your browser window.
 A browser error message like “Server Not Found” implies a DNS problem. First, ensure that server1.centralsoft.org has DNS entries in a public nameserver:
 ```shell
-# dig server1.centralsoft.org
+# dig XXX.XXX.org
 ...
 ;; ANSWER SECTION:
-server1.centralsoft.org. 106489 IN A 192.0.34.166 ...
+XXX.XXX.org. 106489 IN A 192.0.34.166 ...
 ```
 Then see whether the server can be reached from the Internet. If your firewall allows pings, poke the server from the outside to see if it’s alive:
 ```shell
-# ping server1.centralsoft.org
-PING server1.centralsoft.org (192.0.34.166) 56(84) bytes of data.
-64 bytes from server1.centralsoft.org (192.0.34.166): icmp_seq=1 ttl=49 time=81.6 ms
+# ping XXX.XXX.org
+PING XXX.XXX.org (192.0.34.166) 56(84) bytes of data.
+64 bytes from XXX.XXX.org (192.0.34.166): icmp_seq=1 ttl=49 time=81.6 ms
 ```
 Check that port 80 is open and not blocked. From an external machine, try nmap:
 ```shell
-# nmap -P0 -p 80 server1.centralsoft.org
+# nmap -P0 -p 80 XXX.XXX.org
     Starting nmap 3.81 ( http://www.insecure.org/nmap/ ) at 2006-07-25 23:50 CDT
-    Interesting ports on server1.centralsoft.org (192.0.34.166):
+    Interesting ports on XXX.XXX.org (192.0.34.166):
     PORT   STATE SERVICE
     80/tcp open  http
     Nmap finished: 1 IP address (1 host up) scanned in 0.186 seconds
 ```
 If you don’t have nmap, pretend to be a web browser. Use telnet to connect to the standard web port (80) and make the simplest HTTP request possible:
 ```shell
-# telnet server1.centralsoft.org 80 Trying 192.0.34.166...
-Connected to server1.centralsoft.org. Escape character is '^]'.
+# telnet XXX.XXX.org 80 Trying 192.0.34.166...
+Connected to XXX.XXX.org. Escape character is '^]'.
     HEAD / HTTP/1.0
     HTTP/1.1 200 OK
     Date: Wed, 26 Jul 2006 04:52:13 GMT
