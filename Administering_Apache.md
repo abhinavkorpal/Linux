@@ -208,4 +208,138 @@ Percentage of the requests served within a certain time (ms)
 100%    22 (longest request)
 ```
 
+### Troubleshooting
+If you like diagnosing problems, you’ll love the Web. There are so many things to break, in so many places and in so many ways, that you’ll be kept busy for ages.
+Let’s look at some classic web problems. (The browser error messages are those used by the Firefox browser, but Internet Explorer’s messages are similar.)
+Web Page Doesn’t Appear in Browser
+Let’s assume your document root is /var/www, your file is test.html, and your server is server1.centralsoft.org. When you use an external web browser to access http://XXX.XXX.org/test.html, you get an error page in your browser window.
+A browser error message like “Server Not Found” implies a DNS problem. First, ensure that server1.centralsoft.org has DNS entries in a public nameserver:
+```shell
+# dig server1.centralsoft.org
+...
+;; ANSWER SECTION:
+server1.centralsoft.org. 106489 IN A 192.0.34.166 ...
+```
+Then see whether the server can be reached from the Internet. If your firewall allows pings, poke the server from the outside to see if it’s alive:
+```shell
+# ping server1.centralsoft.org
+PING server1.centralsoft.org (192.0.34.166) 56(84) bytes of data.
+64 bytes from server1.centralsoft.org (192.0.34.166): icmp_seq=1 ttl=49 time=81.6 ms
+```
+Check that port 80 is open and not blocked. From an external machine, try nmap:
+```shell
+# nmap -P0 -p 80 server1.centralsoft.org
+    Starting nmap 3.81 ( http://www.insecure.org/nmap/ ) at 2006-07-25 23:50 CDT
+    Interesting ports on server1.centralsoft.org (192.0.34.166):
+    PORT   STATE SERVICE
+    80/tcp open  http
+    Nmap finished: 1 IP address (1 host up) scanned in 0.186 seconds
+```
+If you don’t have nmap, pretend to be a web browser. Use telnet to connect to the standard web port (80) and make the simplest HTTP request possible:
+```shell
+# telnet server1.centralsoft.org 80 Trying 192.0.34.166...
+Connected to server1.centralsoft.org. Escape character is '^]'.
+    HEAD / HTTP/1.0
+    HTTP/1.1 200 OK
+    Date: Wed, 26 Jul 2006 04:52:13 GMT
+    Server: Apache/2.0.54 (Fedora)
+    Last-Modified: Tue, 15 Nov 2005 13:24:10 GMT
+    ETag: "63ffd-1b6-80bfd280"
+    Accept-Ranges: bytes
+    Content-Length: 438
+    Connection: close
+    Content-Type: text/html; charset=UTF-8
+    Connection closed by foreign host.
+```
+If that doesn’t work, make sure this line is in /etc/apache2/ports.conf: 
+```shell
+Listen 80
+```
+and see whether anything else is hogging port 80:
+```shell
+# lsof -i :80
+```
+If you don’t see apache2 in this output, find out whether Apache is running: 
+```shell
+# ps -efl | grep apache2
+```
+If the output contains lines like this:
+```shell
+     5 S root      7692     1  0  76   0 -  2991 415244 Jul16 ?        00:00:00
+     /usr/sbin/apache2 -k start -DSSL
+```
+Apache is running. If it isn’t, kick it in the pants:
+```shell
+# /etc/init.d/apache2 start
+```
+Then run the ps command again. If Apache still does not appear, look at the error log:
+```shell
+# tail -f /var/log/apache2/error.log
+```
+If you don’t have permission to view this file, you’re definitely having a hard day. If the error log is empty, it may also have the wrong permissions. Confirm that the /var/ log/apache2 directory and the /var/log/apache2/error.logfile exist:
+```shell
+# ls -l /var/log/apache2
+total 84
+```
+If the tail of the error log showed old information, you may be out of disk space. It’s surprising how often we forget to check this before investigating more esoteric sus- pects, such as firewalls. Type:
+```shell
+# df
+```
+If you used a different User or Group directive in your Apache configuration, check
+that the user and group exist:
+```shell
+# id www-data
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+If the browser returned an Apache error message, you have some more digging to do. If the display says:
+```shell
+     Not Found
+     The requested URL /wrong.html was not found on this server.
+ ```
+the URL was probably mistyped. If you see:
+```shell
+     Forbidden
+     You don't have permission to access /permissions.html on this server.
+```
+the file is there, but the Apache user can’t read it:
+```shell
+# cd /var/www
+# ls -l permissions.html
+-rw------- 1 root root 0 Jul 26 00:01 permissions.html
+```
+Permissions problems can be fixed by changing the owner of the file to the process running Apache.
+### Virtual Hosts Don’t Work
+Use
+```shell
+# apache2ctl -S
+```
+for a quick check of your virtual host directives.
+### SSI Doesn’t Work
+If you see lines like this in your error log (/var/log/apache2/error.log): 
+```shell
+[error] an unknown filter was not added: INCLUDES
+```
+you didn’t enable mod_include. Run the command:
+```shell
+# a2enmod include
+```
+### CGI Program Doesn’t Run
+If you can’t get a CGI program to run, work through the following checklist:
+• Has CGI been enabled, by one of the methods discussed earlier?
+• Is the CGI program in a CGI directory like /var/cgi-bin, or does it have a suffix like .php?
+• Is the file readable? If not, use chmod.
+• What does the Apache error log say?
+• How about the system error log, /var/log/messages?
+### SSL Doesn’t Work
+Check that you enabled the Apache SSL module (a2enmod ssl) and told Apache to listen to port 443 in /etc/apache2/ports.conf:
+Listen 443
+If the directive wasn’t there, add it and restart Apache. Then try to access this URL in your browser: https://XXX.XXX.org. If it still doesn’t work, port 443 may be blocked by a firewall. You can check this with nmap:
+```shell
+# nmap -P0 -p 443 server1.centralsoft.org
+    Starting nmap 3.70 ( http://www.insecure.org/nmap/ ) at 2006-08-01 22:38 CDT
+    Interesting ports on ... (...):
+    PORT    STATE SERVICE
+    443/tcp open  https
+    Nmap run completed -- 1 IP address (1 host up) scanned in 0.254 seconds
+```
 
