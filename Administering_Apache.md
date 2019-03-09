@@ -1,4 +1,4 @@
-`Administering_Apache`
+## `Administering_Apache`
 
 - Apache isn’t the fastest web server, or the easiest to configure, or the most secure, but it’s good enough to dominate all others.
 
