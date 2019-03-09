@@ -155,4 +155,57 @@ Re-type new password: kraken Updating password for user jack
 ### Group files
 Another way to handle multiple users is to use a group file.
 
+### BenchMarking
+
+Let’s make 1,000 separate requests for the same file, with a concurrency (simultaneous requests) of 5:
+```shell
+# ab -n 1000 -c 5 http://XXXX.XXXX.org/testing.html
+This is ApacheBench, Version 2.0.41-dev <$Revision$> apache-2.0
+Copyright (c) 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/ Copyright (c) 1998-2002 The Apache Software Foundation, http://www.apache.org/
+Benchmarking server1.centralsoft.org (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Finished 1000 requests
+Server Software:Apache/2.0.54
+Server Hostname:server1.centralsoft.org
+Server Port:80
+Document Path:/bench.html
+Document Length:1090 bytes
+Concurrency Level:5
+Time taken for tests:2.799386 seconds
+Complete requests:1000
+Failed requests:0
+Write errors:0
+Non-2xx responses:1000
+Total transferred:1425000 bytes
+HTML transferred:1090000 bytes
+Requests per second:357.22 [#/sec] (mean)
+Time per request:13.997 [ms] (mean)
+Time per request:2.799 [ms] (mean, across all concurrent requests)
+Transfer rate:496.89 [Kbytes/sec] received
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       3
+Processing:     6 
+Waiting:        5
+Total:          6
+Percentage of the requests served within a certain time (ms)
+50%     11
+66%     12
+75%     13
+80%     13
+90%     14
+95%     14
+98%     15
+99%     16
+100%    22 (longest request)
+```
+
 
